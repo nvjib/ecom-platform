@@ -37,6 +37,14 @@ const signUp = async (req, res) => {
             JWT_SECRET,
             { expiresIn: "1h" }
         )
+
+        // Send JWT as cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "Strict",
+            maxAge: 3600000
+        })
     
         // Return success
         return res.status(201).json({ message: "User created successfully!", token })
@@ -66,6 +74,14 @@ const login = async (req, res) => {
             JWT_SECRET,
             { expiresIn: "1h" }
         )
+
+        // Send JWT as cookie
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV || "production",
+            sameSite: "Strict",
+            maxAge: 3600000
+        })
     
         // Return success
         return res.status(200).json({ message: "Logged in successfully!", token })
