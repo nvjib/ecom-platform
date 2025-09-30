@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { signup } from './authAPI'
+import { signupAPI } from './authAPI'
 
 const SignupForm = () => {
   const [name, setName] = useState("")
@@ -11,7 +11,7 @@ const SignupForm = () => {
   const signUp = async (e) => {
     e.preventDefault()
     try {
-        const res = await signup({ name, email, password, role })
+        const res = await signupAPI({ name, email, password, role })
         setMessage(res.data.message)
         console.log(res.data.message)
     } catch (error) {
