@@ -29,6 +29,23 @@ const signUpSchema = Joi.object({
     })
 })
 
+// Schema for validating login requests
+const loginSchema = Joi.object({
+    email: Joi.string().email().trim().required().messages({
+        "string.base": "Email must be a string",
+        "string.empty": "Email cannot be empty",
+        "string.email": "Must be a valid email",
+        "any.required": "Email is required"
+    }),
+    password: Joi.string().trim().min(8).required().messages({
+        "string.base": "Password must be a string",
+        "string.empty": "Password cannot be empty",
+        "string.min": "Password must at least be 8 characters",
+        "any.required": "Password is required"
+    }),
+})
+
 module.exports = {
-    signUpSchema
+    signUpSchema,
+    loginSchema
 }

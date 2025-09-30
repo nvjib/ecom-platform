@@ -45,6 +45,36 @@ const signUp = async (req, res) => {
     }
 }
 
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body
+
+        // check if user exist  
+        const user = await findUser(email)
+    
+        if (!user) {
+            return res.status(404).json({ error: "User does not exist" })
+        }
+    
+        // Compare password
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) return res.status(401).json({ error: "Invalid password" })
+    
+        // Sign JWT
+        const token = jwt.sign(
+            { id: user.id, name: user.name, email: user.email, role: user.role },
+            JWT_SECRET,
+            { expiresIn: "1h" }
+        )
+    
+        // Return success
+        return res.status(200).json({ message: "Logged in successfully!", token })
+    } catch (error) {
+        return res.status(500).json({ error: error.message || "Internal server error" })
+    }
+}
+
 module.exports = {
-    signUp
+    signUp,
+    login
 }
