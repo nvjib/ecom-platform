@@ -9,7 +9,7 @@ const signUp = async (req, res) => {
         const { name, email, password, role } = req.body
 
         // Check if user exists
-        const { rows: [existingUser] } = await findUser(email)
+        const existingUser = await findUser(email)
     
         if (existingUser) {
             return res.status(400).json({ error: "User already exists" })
@@ -20,7 +20,7 @@ const signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt)
     
         // Create new user
-        const { rows: [newUser] } = await createUser({
+        const newUser = await createUser({
             name,
             email,
             password: hashedPassword,
@@ -41,7 +41,7 @@ const signUp = async (req, res) => {
         // Return success
         return res.status(201).json({ message: "User created successfully!", token })
     } catch (error) {
-        return res.status(500).json({ error: "Interal server error" })
+        return res.status(500).json({ error: error.message || "Internal server error" })
     }
 }
 
