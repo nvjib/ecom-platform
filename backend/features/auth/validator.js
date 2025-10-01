@@ -2,20 +2,20 @@ const Joi = require("joi");
 
 // Schema for validating signup requests
 const signUpSchema = Joi.object({
-    name: Joi.string().min(1).max(20).required().messages({
+    name: Joi.string().trim().min(1).max(20).required().messages({
         "string.base": "Name must be a string",
         "string.empty": "Name cannot be empty",
         "string.min": "Name must at least be 1 character",
         "string.max": "Name cannot exceed 20 characters",
         "any.required": "Name is required"
     }),
-    email: Joi.string().email().required().messages({
+    email: Joi.string().trim().email().required().messages({
         "string.base": "Email must be a string",
         "string.empty": "Email cannot be empty",
         "string.email": "Must be a valid email",
         "any.required": "Email is required"
     }),
-    password: Joi.string().min(8).required().messages({
+    password: Joi.string().trim().min(8).required().messages({
         "string.base": "Password must be a string",
         "string.empty": "Password cannot be empty",
         "string.min": "Password must at least be 8 characters",
@@ -25,7 +25,7 @@ const signUpSchema = Joi.object({
         "string.base": "Role must be a string",
         "string.empty": "Role cannot be empty",
         "any.only": "Role must be either (admin or user)",
-        "any.required": "Name is required"
+        "any.required": "Role is required"
     })
 })
 

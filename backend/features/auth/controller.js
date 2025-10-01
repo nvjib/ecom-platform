@@ -47,7 +47,7 @@ const signUp = async (req, res) => {
         })
     
         // Return success
-        return res.status(201).json({ message: "User created successfully!", token })
+        return res.status(201).json({ message: "User created successfully!" })
     } catch (error) {
         return res.status(500).json({ error: error.message || "Internal server error" })
     }
@@ -78,13 +78,13 @@ const login = async (req, res) => {
         // Send JWT as cookie
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV || "production",
+            secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
             maxAge: 3600000
         })
     
         // Return success
-        return res.status(200).json({ message: "Logged in successfully!", token })
+        return res.status(200).json({ message: "Logged in successfully!" })
     } catch (error) {
         return res.status(500).json({ error: error.message || "Internal server error" })
     }

@@ -9,7 +9,7 @@ const findUser = async (email) => {
         )
         return rows[0] || null
     } catch (error) {
-        throw new Error("findUser database error:", error)
+        throw new Error(`findUser database error: ${error.message}`);
     }
 }
 
@@ -24,7 +24,7 @@ const createUser = async ({ name, email, password, role }) => {
         )
         return rows[0] || null
     } catch (error) {
-        throw new Error("createUser database error:", error)
+        throw new Error(`createUser database error: ${error.message}`);
     }
 }
 
