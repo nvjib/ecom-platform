@@ -11,30 +11,66 @@ const SignupForm = () => {
   const signUp = async (e) => {
     e.preventDefault()
     try {
-        const res = await signupAPI({ name, email, password, role })
-        setMessage(res.data.message)
-        console.log(res.data.message)
+      const res = await signupAPI({ name, email, password, role })
+      setMessage(res.data.message)
     } catch (error) {
-        console.error("Error", error)
-        setMessage("Error signing up. Please try again!")
+      console.error("Error", error)
+      setMessage("Error signing up. Please try again!")
     }
   }
 
   return (
-    <form onSubmit={signUp}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='Name'/>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email'/>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password'/>
-        
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="" disabled>Choose a role</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select>
+    <form onSubmit={signUp} className="space-y-2">
+      {/* Name */}
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+        className="w-full rounded-lg border border-gray-300 px-3 py-1 font-light focus:outline-none focus:ring-1 focus:ring-black"
+      />
 
-        <button type='submit'>Submit</button>
+      {/* Email */}
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="name@example.com"
+        className="w-full rounded-lg border border-gray-300 px-3 py-1 font-light focus:outline-none focus:ring-1 focus:ring-black"
+      />
 
-        {message && <p>{message}</p>}
+      {/* Password */}
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        className="w-full rounded-lg border border-gray-300 px-3 py-1 font-light focus:outline-none focus:ring-1 focus:ring-black"
+      />
+
+      {/* Role */}
+      <select
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+        className="w-full rounded-lg border border-gray-300 px-3 py-1 bg-white focus:outline-none focus:ring-1 focus:ring-black"
+      >
+        <option value="" disabled>Choose a role</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      {/* Button */}
+      <button
+        type="submit"
+        className="w-full bg-black text-white rounded-md px-3 py-1 h-8 text-sm cursor-pointer"
+      >
+        Sign Up
+      </button>
+
+      {/* Message */}
+      {message && (
+        <p className="text-center text-sm text-red-700">{message}</p>
+      )}
     </form>
   )
 }
