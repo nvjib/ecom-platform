@@ -3,8 +3,7 @@ const { create } = require("./service")
 const createProduct = async (req, res) => {
     try {
         const { image, title, price, description, features } = req.body
-
-        // insert into db
+        
         const product = await create({
             image, 
             title, 
