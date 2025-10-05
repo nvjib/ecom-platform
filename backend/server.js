@@ -4,6 +4,7 @@ const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const rateLimit = require("express-rate-limit")
 const auth = require("./features/auth/route")
+const products = require("./features/products")
 
 const app = express()
 
@@ -27,6 +28,7 @@ app.use(cookieParser())
 
 // Routes
 app.use("/auth", auth)
+app.use("/products", products)
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Server is running on: http://localhost:${PORT}`))
